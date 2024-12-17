@@ -27,15 +27,39 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Listing directory
-      run: ls -lah target
-    - name: Copy file to remote server
-      uses: appleboy/scp-action@master
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USERNAME }}
-          key: ${{ secrets.REMOTE_SSH_KEY }}
-          source: "target/*.jar"
-          target: "/home/khan"
+          name: my-artifact
+          path: target/calculator-1.0-SNAPSHOT.jar
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      #- name: Checkout code
+      #  uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: calculator
+      - name: Listing directory
+        run: ls -lah target
+
+
+
+
+
+   # - name: Listing directory
+   #   run: ls -lah target
+   # - name: Copy file to remote server
+   #   uses: appleboy/scp-action@master
+   #   with:
+   #       host: ${{ secrets.REMOTE_HOST }}
+   #       username: ${{ secrets.REMOTE_USERNAME }}
+   #       key: ${{ secrets.REMOTE_SSH_KEY }}
+   #       source: "target/*.jar"
+   #       target: "/home/khan"
 
 
