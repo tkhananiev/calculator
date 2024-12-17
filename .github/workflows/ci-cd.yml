@@ -37,5 +37,5 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.REMOTE_SSH_KEY }}
-          script: scp target/*.jar REMOTE_HOST:/opt
+          script: scp target/*.jar ${{ secrets.REMOTE_HOST }}:/opt
 
