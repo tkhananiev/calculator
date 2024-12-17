@@ -36,6 +36,6 @@ jobs:
           username: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.REMOTE_SSH_KEY }}
           source: "target/*.jar"
-          target: "opt"
+          target: "/home/khan"
 
 
