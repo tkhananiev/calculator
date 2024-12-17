@@ -16,9 +16,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -31,11 +29,13 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Listing directory
       run: ls -lah target
-    - name: Run bash command on remote server
-      uses: appleboy/ssh-action@master
+    - name: Copy file to remote server
+      uses: appleboy/scp-action@master
       with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.REMOTE_SSH_KEY }}
-          script: scp target/*.jar ${{ secrets.REMOTE_HOST }}:/opt
+          source: "target/*.jar"
+          target: "opt"
+
 
