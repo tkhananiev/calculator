@@ -1,5 +1,4 @@
 name: MEPHI Training Warkflow
-
 on:
   push:
     branches: [ "main" ]
@@ -46,8 +45,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: calculator
-      - name: Listing directory
-        run: ls -lah
       - name: Rename artifact
         run: mv ./*.jar calculator.jar
       - name: Copy file to remote server
